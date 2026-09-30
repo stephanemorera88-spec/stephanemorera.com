@@ -68,7 +68,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-
 
 h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; }
 
-/* Nav. Blend mode keeps it legible over the dark wall and the paper sections alike. */
+/* Nav. The container blends (difference) so text reads on the wall and on paper.
+   The crown sits in its own sticky layer, outside the blend, so it stays gold. */
+.nav-crown {
+  position: sticky; top: 0; z-index: 6; height: 0;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+.nav-crown .crown { position: absolute; top: 22px; }
+.crown { width: 22px; height: 16px; fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
+.crown-space { display: inline-block; width: 22px; height: 16px; }
 .nav {
   position: sticky; top: 0; z-index: 5;
   display: flex; align-items: center; justify-content: space-between;
@@ -77,7 +86,6 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; }
   color: #fff;
 }
 .nav-mark { display: inline-flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 1.125rem; letter-spacing: 0.005em; }
-.crown { width: 22px; height: 16px; fill: none; stroke: #fff; stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
 .nav nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 32px); font-size: 0.9375rem; }
 .nav nav a { color: rgba(255,255,255,0.72); transition: color .2s; }
 .nav nav a:hover { color: #fff; }
