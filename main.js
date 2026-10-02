@@ -115,15 +115,20 @@
     });
   }
 
+  /* The count-up is painted over the number (data-n + CSS ::after). The number in the HTML
+     never changes, so readers without JS and renderers that stop mid-animation read the real value. */
   function countUp(el) {
     var end = parseInt(el.getAttribute("data-count"), 10);
-    if (reduced || end === 0) { el.textContent = String(end); return; }
-    var t0 = performance.now(), dur = 1100;
+    if (reduced || end === 0) { el.removeAttribute("data-n"); return; }
+    var t0 = performance.now(), dur = 1100, done = false;
+    /* Timers still run where animation frames stall (headless renderers); end on the real number. */
+    setTimeout(function () { done = true; el.removeAttribute("data-n"); }, dur + 150);
     (function tick(now) {
+      if (done) return;
       var k = Math.min(1, (now - t0) / dur);
       var e = 1 - Math.pow(1 - k, 3);
-      el.textContent = String(Math.round(end * e));
-      if (k < 1) requestAnimationFrame(tick);
+      el.setAttribute("data-n", String(Math.round(end * e)));
+      if (k < 1) requestAnimationFrame(tick); else el.removeAttribute("data-n");
     })(t0);
   }
 
@@ -143,6 +148,19 @@
       });
     }, { threshold: 0.25 });
     Array.prototype.forEach.call(document.querySelectorAll(".ledger-group, .tally"), function (el) { io.observe(el); });
+    /* Show 0 just before each tally scrolls into view, so the count-up starts clean. */
+    if (!reduced) {
+      var pre = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          if (!seen.has(en.target)) {
+            Array.prototype.forEach.call(en.target.querySelectorAll("[data-count]"), function (el) { el.setAttribute("data-n", "0"); });
+          }
+          pre.unobserve(en.target);
+        });
+      }, { rootMargin: "0px 0px 300px 0px" });
+      Array.prototype.forEach.call(document.querySelectorAll(".tally"), function (el) { pre.observe(el); });
+    }
   } else {
     Array.prototype.forEach.call(rows, fillRow);
     Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), countUp);
