@@ -289,3 +289,52 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; }
   .dots i { transition: none; transform: scale(1); }
   .btn, .worklist a { transition: none; }
 }
+
+/* King of AEO page (/king-of-aeo/). Reuses the wall, the claim block and the ledger; adds a page head and paper prose. */
+.page-head {
+  max-width: var(--max); margin: 0 auto;
+  padding: clamp(6rem, 10vh, 10rem) var(--gutter) clamp(2rem, 4vh, 4rem);
+}
+.kicker { margin: 0 0 1.25rem; font-size: 0.875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.page-head h1 {
+  font-size: clamp(2.75rem, 1.5rem + 5.5vw, 7rem); line-height: 0.98; letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144; font-weight: 300; max-width: 16ch; text-wrap: balance;
+}
+.dek { margin: 1.75rem 0 0; max-width: 36rem; color: var(--fg-muted); font-size: 1.125rem; }
+.sub .claim { padding-top: clamp(3rem, 6vh, 6rem); }
+.claim-notes a { color: var(--fg); border-bottom: 1px solid var(--rule-strong); transition: border-color .2s; }
+.claim-notes a:hover { border-color: var(--gold); }
+.crown-portrait { margin: 0 0 1.75rem; max-width: 22rem; }
+.crown-portrait img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+.crown-portrait figcaption { margin-top: 0.6rem; font-size: 0.8125rem; letter-spacing: 0.02em; color: var(--fg-muted); }
+
+.essay { padding: var(--section) 0; }
+.essay + .essay { padding-top: 0; }
+.essay-body { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.essay-body h2 {
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.04; letter-spacing: -0.02em; font-variation-settings: "opsz" 144;
+  max-width: 20ch;
+}
+.essay-body h2 + h2 { margin-top: 0; }
+.essay-body p { margin: 1.5rem 0 0; max-width: 42rem; font-size: 1.125rem; line-height: 1.65; color: var(--ink-muted); }
+.essay-body p:first-of-type { color: var(--ink); }
+.essay-body a { color: var(--ink); border-bottom: 1px solid var(--rule-ink-strong); transition: border-color .2s; }
+.essay-body a:hover { border-color: var(--gold-ink); }
+.essay-body h2 + h2, .essay-body p + h2, .essay-body dl + h2 { margin-top: var(--section); }
+
+.timeline { margin: 2.5rem 0 0; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 2rem; row-gap: 0; max-width: 60rem; }
+.timeline dt, .timeline dd { border-top: 1px solid var(--rule-ink); padding: 1.4rem 0; margin: 0; }
+.timeline dt { font-family: var(--serif); font-size: 1.125rem; font-variation-settings: "opsz" 40; color: var(--ink); }
+.timeline dd { color: var(--ink-muted); line-height: 1.6; }
+.timeline dd b { font-weight: 500; color: var(--ink); }
+.timeline dd:last-of-type, .timeline dt:last-of-type { border-bottom: 1px solid var(--rule-ink); }
+@media (max-width: 720px) {
+  .timeline { grid-template-columns: 1fr; }
+  .timeline dt { padding-bottom: 0.25rem; }
+  .timeline dd { border-top: 0; padding-top: 0.25rem; }
+  .timeline dt:last-of-type { border-bottom: 0; }
+}
+
+.faq { margin: 2.5rem 0 0; max-width: 42rem; }
+.faq dt { font-family: var(--serif); font-size: clamp(1.375rem, 1rem + 1.2vw, 1.75rem); font-variation-settings: "opsz" 40; letter-spacing: -0.01em; color: var(--ink); border-top: 1px solid var(--rule-ink); padding-top: 1.4rem; }
+.faq dd { margin: 0.75rem 0 1.6rem; color: var(--ink-muted); line-height: 1.65; font-size: 1.0625rem; }
